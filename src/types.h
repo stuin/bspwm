@@ -47,7 +47,8 @@ typedef enum {
 typedef enum {
 	SCHEME_LONGEST_SIDE,
 	SCHEME_ALTERNATE,
-	SCHEME_SPIRAL
+	SCHEME_SPIRAL,
+	SCHEME_GRID
 } automatic_scheme_t;
 
 typedef enum {
