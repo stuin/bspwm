@@ -278,6 +278,9 @@ bool parse_automatic_scheme(char *s, automatic_scheme_t *a)
 	} else if (streq("spiral", s)) {
 		*a = SCHEME_SPIRAL;
 		return true;
+	} else if (streq("grid", s)) {
+		*a = SCHEME_GRID;
+		return true;
 	}
 	return false;
 }

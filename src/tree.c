@@ -323,6 +323,11 @@ node_t *insert_node(monitor_t *m, desktop_t *d, node_t *n, node_t *f)
 		if (f->presel == NULL) {
 			bool single_tiled = f->client != NULL && IS_TILED(f->client) && tiled_count(d->root, true) == 1;
 			if (p == NULL || automatic_scheme != SCHEME_SPIRAL || single_tiled) {
+				if(automatic_scheme == SCHEME_GRID) {
+					f = first_focusable_leaf(d->root);
+					p = f->parent;
+				}
+
 				if (p != NULL) {
 					if (is_first_child(f)) {
 						p->first_child = c;
@@ -341,7 +346,7 @@ node_t *insert_node(monitor_t *m, desktop_t *d, node_t *n, node_t *f)
 					c->first_child = f;
 					c->second_child = n;
 				}
-				if (p == NULL || automatic_scheme == SCHEME_LONGEST_SIDE || single_tiled) {
+				if (p == NULL || automatic_scheme == SCHEME_LONGEST_SIDE || automatic_scheme == SCHEME_GRID || single_tiled) {
 					if (f->rectangle.width > f->rectangle.height) {
 						c->split_type = TYPE_VERTICAL;
 					} else {
@@ -361,7 +366,7 @@ node_t *insert_node(monitor_t *m, desktop_t *d, node_t *n, node_t *f)
 						c->split_type = TYPE_HORIZONTAL;
 					}
 				}
-			} else {
+			} else {				
 				node_t *g = p->parent;
 				c->parent = g;
 				if (g != NULL) {
